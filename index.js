@@ -6,6 +6,10 @@ import http from 'http';
 import cors from 'cors';
 
 /**
+ * server configuration
+ */
+
+/**
  * express application
 */
 const app = express();
@@ -28,7 +32,7 @@ app.use(express.json());
 // fill routes for express application
 app.use('/api/v1/clients', ClientRoute);
 
-// error handler (last middleware to use)
+// error handler (Last middleware to use)
 app.use(ErrorHandler);
 
 app.listen(port, () => {
