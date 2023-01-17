@@ -1,14 +1,13 @@
-const getClient = ((req, res) => {
-    res.status(200).send("The client is...");
-})
+import { connect, disconnect } from '../../infraestructure/database/db.js'
+import { getUsers } from '../../domain/repositories/client.repository.js';
 
-const getAllClient = ((req, res, next) => {
+const getAllClient = (async (req, res, next) => {
     try {
-        throw new error("No se pudieron obtener los clientes...")
-        res.status(200).send("This are ALL the client!");
+        const users = await getUsers();
+        res.status(200).json(users);
     } catch (err) {
-        next(err);
+        res.status(500).send(err);
     }
 })
 
-export { getClient, getAllClient };
+export { getAllClient };
