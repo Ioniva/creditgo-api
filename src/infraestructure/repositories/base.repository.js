@@ -16,7 +16,6 @@ class BaseRepository {
     }
 
     async create(data) {
-        console.log({ ...data, ...this.createdAt });
         return knex(this.tableName).insert({ ...data, ...this.createdAt });
     }
 
