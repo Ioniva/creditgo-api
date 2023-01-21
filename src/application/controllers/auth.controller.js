@@ -17,8 +17,8 @@ const signup = (async (req, resp, next) => {
 const signin = (async (req, resp, next) => {
     try {
         const { email, password } = req.body;
-        const result = await authService.signin(email, password);
-        resp.status(200).json(result);
+        const token = await authService.signin(email, password);
+        resp.status(200).json(token);
     } catch (error) {
         next(error);
     }
