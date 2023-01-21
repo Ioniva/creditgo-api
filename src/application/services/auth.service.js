@@ -4,6 +4,7 @@ import PasswordUtility from "../../domain/utilities/password.utilities.js";
 import UserRepository from "../../infraestructure/repositories/user.repository.js";
 import RoleRepository from '../../infraestructure/repositories/role.repository.js';
 import UserMapper from "../mappers/user.mapper.js";
+import JWTUtility from '../../domain/utilities/jwt.utilities.js';
 
 const userRepository = new UserRepository('user_login_data');
 const roleRepository = new RoleRepository('user_login_data');
@@ -11,7 +12,7 @@ const userMapper = new UserMapper();
 
 class UserService {
 
-    async createUser(userDTO) {
+    async signup(userDTO) {
         try {
             const clientRole = "C";
             const encryptedPassword = PasswordUtility.encryptPassword(userDTO.password);
@@ -22,8 +23,22 @@ class UserService {
             user = { ...user, created_at: new Date(), uuid: uuidv4() }
 
             let roleId = await roleRepository.findIdByCode(clientRole);
-            if (!roleId) throw ("El role no existe.")
+            if (!roleId) throw ("El role no existe.");
             await userRepository.createUserWithRole(user, roleId);
+        } catch (error) {
+            throw (error);
+        }
+    }
+
+    async signin(email, password) {
+        try {
+            const user = await userRepository.findByEmail(email);
+            if (!user) throw ("El usuario no existe.");
+
+            const isMatch = PasswordUtility.comparePasswords(password, user.password);
+            if (!isMatch) throw ("Email o contraseña incorrectos");
+
+            return JWTUtility.sign({ id: user.uuid }, process.env.JWT_SECRET, { expiresIn: "1h" })
         } catch (error) {
             throw (error);
         }
