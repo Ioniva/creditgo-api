@@ -4,16 +4,12 @@
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
-// import dotenv from 'dotenv';
-// import { fileURLToPath } from 'url';
-// import path from 'path';
+import dotenv from 'dotenv';
 
 /**
  * server configuration
  */
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// dotenv.config({ path: path.join(__dirname, '.env') });
+dotenv.config();
 
 /**
  * express application
@@ -23,12 +19,16 @@ const server = http.Server(app);
 const port = process.env.PORT || 4000
 
 // server entry files
-import { RoleRoute } from './src/infraestructure/routes/index.routes.js';
+import { AuthRoute, RoleRoute } from './src/infraestructure/routes/index.routes.js';
 import ErrorHandler from './src/infraestructure/middlewares/errorHandler.js'
+
+const corsOptions = {
+    origin: 'http://localhost:8081'
+}
 
 // allow cross origin requests
 // configure to only allow requests from certain origins
-app.use(cors());
+app.use(cors(corsOptions));
 
 // parsing the request bodys
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +36,7 @@ app.use(express.json());
 
 // fill routes for express application
 app.use('/api/v1/roles', RoleRoute);
+app.use('/api/v1/auth', AuthRoute);
 
 // error handler (Last middleware to use)
 app.use(ErrorHandler);
