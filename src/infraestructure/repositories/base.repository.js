@@ -4,7 +4,6 @@ class BaseRepository {
 
     constructor(tableName) {
         this.tableName = tableName;
-        this.createdAt = { created_at: new Date() };
     }
 
     async findAll() {
@@ -16,7 +15,7 @@ class BaseRepository {
     }
 
     async create(data) {
-        return knex(this.tableName).insert({ ...data, ...this.createdAt });
+        return knex(this.tableName).insert(data);
     }
 
     async update(id, data) {
