@@ -1,8 +1,8 @@
-import BaseRepository from '../../infraestructure/repositories/base.repository.js';
+import RoleRepository from '../../infraestructure/repositories/role.repository.js';
 import RoleDTO from '../DTOs/role.dto.js';
 import RoleMapper from '../mappers/role.mapper.js';
 
-const roleRepository = new BaseRepository('role');
+const roleRepository = new RoleRepository('role');
 const roleMapper = new RoleMapper();
 
 class RoleService {
@@ -18,7 +18,8 @@ class RoleService {
 
     async createRole(roleDTO) {
         try {
-            const role = roleMapper.toEntity(roleDTO);
+            let role = roleMapper.toEntity(roleDTO);
+            role = { ...role, created_at: new Date() }
             await roleRepository.create(role);
         } catch (error) {
             throw (error);
