@@ -8,7 +8,7 @@ class UserRepository extends BaseRepository {
     }
 
     async createUserWithRole(user, roleId) {
-        knex.from('user_login_data').insert(user).returning('id').asCallback(function (err, userId) {
+        knex.from(this.tableName).insert(user).returning('id').asCallback(function (err, userId) {
             if (err) return console.log(err);
             knex('user_role').insert({
                 id_user_login_data: parseInt(userId[0].id),
@@ -17,6 +17,11 @@ class UserRepository extends BaseRepository {
                 if (err) return console.log(err);
             });
         })
+    }
+
+    async findByEmail(email) {
+        const result = await knex.from(this.tableName).select('*').where({ email: email });
+        return result[0];
     }
 }
 
