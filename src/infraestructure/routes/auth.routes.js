@@ -1,11 +1,10 @@
 import express from 'express';
-import { signup } from '../../application/controllers/auth.controller.js';
-// import validatorRoleDTO from '../middlewares/validation/role.validation.js';
+import { signup, signin } from '../../application/controllers/auth.controller.js';
 
 const router = express.Router();
 
 router.post('/signup', signup);
-// router.post('/', validatorRoleDTO, createRole);
+router.post('/signin', signin);
 
 
 export default router;
