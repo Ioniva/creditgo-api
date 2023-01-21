@@ -12,7 +12,7 @@ class RoleService {
             const roles = await roleRepository.findAll();
             return roles.map(role => roleMapper.toDTO(role));
         } catch (error) {
-            throw (error);
+            return error;
         }
     };
 
@@ -22,7 +22,7 @@ class RoleService {
             role = { ...role, created_at: new Date() }
             await roleRepository.create(role);
         } catch (error) {
-            throw (error);
+            return error;
         }
     };
 

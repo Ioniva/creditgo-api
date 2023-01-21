@@ -23,24 +23,24 @@ class UserService {
             user = { ...user, created_at: new Date(), uuid: uuidv4() }
 
             let roleId = await roleRepository.findIdByCode(clientRole);
-            if (!roleId) throw ("El role no existe.");
+            if (!roleId) return "El role no existe.";
             await userRepository.createUserWithRole(user, roleId);
         } catch (error) {
-            throw (error);
+            return error;
         }
     }
 
     async signin(email, password) {
         try {
             const user = await userRepository.findByEmail(email);
-            if (!user) throw ("El usuario no existe.");
+            if (!user) return "El usuario no existe.";
 
             const isMatch = PasswordUtility.comparePasswords(password, user.password);
-            if (!isMatch) throw ("Email o contraseña incorrectos");
+            if (!isMatch) return "Email o contraseña incorrectos";
 
             return JWTUtility.sign({ id: user.uuid }, process.env.JWT_SECRET, { expiresIn: "1h" })
         } catch (error) {
-            throw (error);
+            return error;
         }
     }
 }
