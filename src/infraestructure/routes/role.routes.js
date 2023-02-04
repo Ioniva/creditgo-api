@@ -8,5 +8,4 @@ const router = express.Router();
 router.get('/', verifyJWT, getAllRoles);
 router.post('/', validatorRoleDTO, verifyJWT, createRole);
 
-
 export default router;
