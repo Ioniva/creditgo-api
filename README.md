@@ -1,3 +1,5 @@
+[![js-semistandard-style](https://raw.githubusercontent.com/standard/semistandard/master/badge.svg)](https://github.com/standard/semistandard)
+
 # Express API Starter
 
 Includes API Server utilities:
@@ -33,6 +35,7 @@ npm run start
 ```
 
 ## Folder structure
+
 ```
 root/
 ├─ node_modules/
@@ -51,3 +54,4 @@ root/
 ├─ index.js
 ├─ package.json
 ├─ .gitignore
+```
