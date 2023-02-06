@@ -2,9 +2,7 @@
  * third party libraries
  */
 import express from 'express';
-import http from 'http';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 // server entry files
 import { AuthRoute, RoleRoute } from './src/infraestructure/routes/index.routes.js';
@@ -13,14 +11,13 @@ import ErrorHandler from './src/infraestructure/middlewares/errorHandler.js';
 /**
  * server configuration
  */
-dotenv.config();
+import config from './config/index.js';
 
 /**
  * express application
 */
 const app = express();
-const server = http.Server(app);
-const port = process.env.PORT || 4000;
+const port = config.PORT || 4000;
 
 const corsOptions = {
   origin: 'http://localhost:8081'
