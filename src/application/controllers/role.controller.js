@@ -1,4 +1,3 @@
-import db from '../../infraestructure/database/connection.js';
 import RoleService from '../services/role.service.js';
 
 // initializing

@@ -1,5 +1,4 @@
 import RoleRepository from '../../infraestructure/repositories/role.repository.js';
-import RoleDTO from '../DTOs/role.dto.js';
 import RoleMapper from '../mappers/role.mapper.js';
 
 const roleRepository = new RoleRepository('role');

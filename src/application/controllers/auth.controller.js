@@ -1,4 +1,3 @@
-import db from '../../infraestructure/database/connection.js';
 import AuthService from '../services/auth.service.js';
 
 // initializing

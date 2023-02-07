@@ -1,10 +1,10 @@
 class User {
-  constructor (id, email, password, created_at, updated_at, uuid) {
+  constructor (id, email, password, createdAt, updatedAt, uuid) {
     this.id = id;
     this.email = email;
     this.password = password;
-    this.created_at = created_at;
-    this.updated_at = updated_at;
+    this.created_at = createdAt;
+    this.updated_at = updatedAt;
     this.uuid = uuid;
 
     Object.seal(this); // prevent properties from being added or removed from the object.

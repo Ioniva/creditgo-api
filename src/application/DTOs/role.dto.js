@@ -1,5 +1,3 @@
-import Role from '../../domain/entities/role.js';
-
 class RoleDTO {
   constructor (name, code) {
     this.name = name;
