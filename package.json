@@ -32,9 +32,8 @@
       "semistandard": "^16.0.1"
   },
   "lint-staged": {
-      "*.{js,json,md}": [
-          "semistandard --fix | snazzy",
-          "git add"
+      "*.js": [
+          "semistandard --fix | snazzy"
       ]
   }
 }
