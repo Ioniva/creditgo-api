@@ -1,40 +1,40 @@
 {
-    "name": "creditgo",
-    "version": "0.0.1",
-    "description": "Private API endpoint for CreditGo application",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js",
-        "dev": "nodemon",
-        "prepare": "husky install"
-    },
-    "author": "",
-    "license": "UNLICENSED",
-    "private": true,
-    "dependencies": {
-        "@cookbook/mapper-js": "^1.1.1",
-        "bcryptjs": "^2.4.3",
-        "cors": "^2.8.5",
-        "dotenv": "^10.0.0",
-        "express": "^4.17.1",
-        "express-validator": "^6.14.2",
-        "jsonwebtoken": "^9.0.0",
-        "knex": "^2.4.1",
-        "pg": "^8.8.0",
-        "uuid": "^9.0.0"
-    },
-    "devDependencies": {
-        "husky": "^8.0.0",
-        "lint-staged": "^13.1.0",
-        "nodemon": "^2.0.7",
-        "semistandard": "^16.0.1"
-    },
-    "lint-staged": {
-        "*.{js,json,md}": [
-            "semistandard --fix | snazzy",
-            "git add"
-        ]
-    }
+  "name": "creditgo",
+  "version": "0.0.1",
+  "description": "Private API endpoint for CreditGo application",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node index.js",
+      "dev": "nodemon",
+      "prepare": "husky install"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+      "@cookbook/mapper-js": "^1.1.1",
+      "bcryptjs": "^2.4.3",
+      "cors": "^2.8.5",
+      "dotenv": "^10.0.0",
+      "express": "^4.17.1",
+      "express-validator": "^6.14.2",
+      "jsonwebtoken": "^9.0.0",
+      "knex": "^2.4.1",
+      "pg": "^8.8.0",
+      "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+      "husky": "^8.0.0",
+      "lint-staged": "^13.1.0",
+      "nodemon": "^2.0.7",
+      "semistandard": "^16.0.1"
+  },
+  "lint-staged": {
+      "*.{js,json,md}": [
+          "semistandard --fix | snazzy",
+          "git add"
+      ]
+  }
 }
