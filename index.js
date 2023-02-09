@@ -7,6 +7,7 @@ import cors from 'cors';
 // server entry files
 import { AuthRoute, RoleRoute } from './src/infraestructure/routes/index.routes.js';
 import ErrorHandler from './src/infraestructure/middlewares/errorHandler.js';
+import { HttpLogger, Logger } from './src/infraestructure/logger/index.js';
 
 /**
  * server configuration
@@ -19,6 +20,9 @@ import config from './config/index.js';
 const app = express();
 const port = config.PORT || 4000;
 
+const morganMiddleware = HttpLogger.getHttpLoggerInstance();
+const logger = Logger.getInstance();
+
 const corsOptions = {
   origin: 'http://localhost:8081'
 };
@@ -26,6 +30,9 @@ const corsOptions = {
 // allow cross origin requests
 // configure to only allow requests from certain origins
 app.use(cors(corsOptions));
+
+// invoke morgan middleware
+app.use(morganMiddleware);
 
 // parsing the request bodys
 app.use(express.urlencoded({ extended: false }));
@@ -39,5 +46,5 @@ app.use('/api/v1/auth', AuthRoute);
 app.use(ErrorHandler);
 
 app.listen(port, () => {
-  console.log(`Listening on port: ${port}`);
+  logger.info(`Listening on port: ${port}`);
 });
