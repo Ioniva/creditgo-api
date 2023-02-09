@@ -1,3 +1,4 @@
+import config from '../../../config/index.js';
 import JWTUtility from '../../domain/utilities/jwt.utilities.js';
 
 const verifyJWT = (req, resp, next) => {
@@ -5,7 +6,7 @@ const verifyJWT = (req, resp, next) => {
     const token = req.headers.authorization;
     if (!token) resp.status(401).json({ error: 'No token provided' });
 
-    const payload = JWTUtility.verify(token, process.env.JWT_SECRET);
+    const payload = JWTUtility.verify(token, config.JWT_SECRET);
     req.user = payload;
 
     next();

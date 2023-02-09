@@ -5,6 +5,7 @@ import UserRepository from '../../infraestructure/repositories/user.repository.j
 import RoleRepository from '../../infraestructure/repositories/role.repository.js';
 import UserMapper from '../mappers/user.mapper.js';
 import JWTUtility from '../../domain/utilities/jwt.utilities.js';
+import config from '../../../config/index.js';
 
 const userRepository = new UserRepository('user_login_data');
 const roleRepository = new RoleRepository('user_login_data');
@@ -37,7 +38,7 @@ class UserService {
       const isMatch = PasswordUtility.comparePasswords(password, user.password);
       if (!isMatch) return 'Email o contraseña incorrectos';
 
-      return JWTUtility.sign({ id: user.uuid }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      return JWTUtility.sign({ id: user.uuid }, config.JWT_SECRET, { expiresIn: '1h' });
     } catch (error) {
       return error;
     }
