@@ -6,7 +6,8 @@ const prod = {
     PASS: 'db-access-user-password',
     HOST: '127.0.0.1',
     PORT: 5432
-  }
+  },
+  JWT_SECRET: 'super-secret-key'
 };
 
 export default prod;
