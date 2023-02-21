@@ -1,9 +1,9 @@
 const dev = {
   PORT: 4000,
   DATABASEa: {
-    NAME: 'db-name',
-    USER: 'db-access-user',
-    PASS: 'db-access-user-password',
+    NAME: 'creditgo',
+    USER: 'postgres',
+    PASS: 'admin123',
     HOST: '127.0.0.1',
     PORT: 5432
   },
