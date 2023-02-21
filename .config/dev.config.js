@@ -1,6 +1,6 @@
 const dev = {
   PORT: 4000,
-  DATABASE: {
+  DATABASEa: {
     NAME: 'db-name',
     USER: 'db-access-user',
     PASS: 'db-access-user-password',
