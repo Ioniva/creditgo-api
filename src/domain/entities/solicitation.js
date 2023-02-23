@@ -4,7 +4,7 @@ import sequelize from '../../infraestructure/database/connection.js';
 import Valoration from './valoration.js';
 import State from './state.js';
 
-const Request = sequelize.define('request', {
+const Solicitation = sequelize.define('solicitation', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -62,12 +62,12 @@ const Request = sequelize.define('request', {
   }
 });
 
-// define the one-to-one relationship between Request and Valoration
-Valoration.hasOne(Request, { foreignKey: 'idValoration' });
-Request.belongsTo(Valoration, { foreignKey: 'idValoration' });
+// define the one-to-one relationship between Solicitation and Valoration
+Valoration.hasOne(Solicitation, { foreignKey: 'idValoration' });
+Solicitation.belongsTo(Valoration, { foreignKey: 'idValoration' });
 
-// define the one-to-one relationship between Request and State
-State.hasOne(Request, { foreignKey: 'idState' });
-Request.belongsTo(State, { foreignKey: 'idState' });
+// define the one-to-one relationship between Solicitation and State
+State.hasOne(Solicitation, { foreignKey: 'idState' });
+Solicitation.belongsTo(State, { foreignKey: 'idState' });
 
-export default Request;
+export default Solicitation;
