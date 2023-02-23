@@ -1,4 +1,3 @@
-import User from '../../domain/entities/user.js';
 import UserDTO from '../DTOs/user.dto.js';
 
 class UserMapper {
@@ -7,14 +6,15 @@ class UserMapper {
   }
 
   toEntity (userDTO) {
-    return new User(
-      userDTO.id,
-      userDTO.email,
-      userDTO.password,
-      userDTO.created_at,
-      userDTO.updated_at,
-      userDTO.uuid
-    );
+    return {
+      id: userDTO.id,
+      email: userDTO.email,
+      password: userDTO.password,
+      createdAt: userDTO.created_at,
+      updatedAt: userDTO.updated_at,
+      uuid: userDTO.uuid,
+      disabled: userDTO.disabled
+    };
   }
 }
 

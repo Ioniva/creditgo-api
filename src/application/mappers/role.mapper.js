@@ -1,4 +1,3 @@
-import Role from '../../domain/entities/role.js';
 import RoleDTO from '../DTOs/role.dto.js';
 
 class RoleMapper {
@@ -7,12 +6,13 @@ class RoleMapper {
   }
 
   toEntity (roleDTO) {
-    return new Role(
-      roleDTO.id,
-      roleDTO.name,
-      roleDTO.code,
-      roleDTO.created_at,
-      roleDTO.updated_at);
+    return {
+      id: roleDTO.id,
+      name: roleDTO.name,
+      code: roleDTO.code,
+      createdAt: roleDTO.created_at,
+      updatedAt: roleDTO.updated_at
+    };
   }
 }
 
