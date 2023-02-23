@@ -1,44 +1,61 @@
-import { v4 as uuidv4 } from 'uuid';
-
-import PasswordUtility from '../../domain/utilities/password.utilities.js';
-import UserRepository from '../../infraestructure/repositories/user.repository.js';
-import RoleRepository from '../../infraestructure/repositories/role.repository.js';
-import UserMapper from '../mappers/user.mapper.js';
 import JWTUtility from '../../domain/utilities/jwt.utilities.js';
+import PasswordUtility from '../../domain/utilities/password.utilities.js';
+
+import sequelize from '../../infraestructure/database/connection.js';
+import User from '../../domain/entities/user.js';
+import Role from '../../domain/entities/role.js';
+
 import config from '../../../config/index.js';
 
-const userRepository = new UserRepository('user_login_data');
-const roleRepository = new RoleRepository('user_login_data');
+import UserMapper from '../mappers/user.mapper.js';
 const userMapper = new UserMapper();
 
 class UserService {
   async signup (userDTO) {
+    const { email, password } = userDTO;
+
+    // Check if email already exists
+    const existingUser = await User.findOne({ where: { email: email } });
+    if (existingUser) return 'El usuario ya existe.';
+
+    // Create the user and assign the customer role to it
+    const hashedPassword = await PasswordUtility.encryptPassword(password);
+    const userEntityFromDto = userMapper.toEntity({ email, password: hashedPassword });
+
+    const transaction = await sequelize.transaction();
     try {
-      const clientRole = 'C';
-      const encryptedPassword = PasswordUtility.encryptPassword(userDTO.password);
-
-      userDTO = { ...userDTO, password: encryptedPassword };
-
-      let user = userMapper.toEntity(userDTO);
-      user = { ...user, created_at: new Date(), uuid: uuidv4() };
-
-      const roleId = await roleRepository.findIdByCode(clientRole);
-      if (!roleId) return 'El role no existe.';
-      await userRepository.createUserWithRole(user, roleId);
+      const user = await User.create(userEntityFromDto, { transaction });
+      const role = await Role.findOne({ where: { code: 'C' }, transaction });
+      await user.addRole([role], { transaction }, { returning: false });
+      await transaction.commit();
     } catch (error) {
-      return error;
+      await transaction.rollback();
+      throw error;
     }
+
+    return 'Usuario creado exitosamente.';
   }
 
-  async signin (email, password) {
+  async signin (userDTO) {
     try {
-      const user = await userRepository.findByEmail(email);
-      if (!user) return 'El usuario no existe.';
+      const { email, password } = userDTO;
 
-      const isMatch = PasswordUtility.comparePasswords(password, user.password);
-      if (!isMatch) return 'Email o contraseña incorrectos';
+      // Check if email already exists
+      const existingUser = await User.findOne({ where: { email: email }, include: Role });
+      if (!existingUser) return 'El usuario no existe.';
 
-      return JWTUtility.sign({ id: user.uuid }, config.JWT_SECRET, { expiresIn: '1h' });
+      // Compare passwords
+      const isPasswordCorrect = await PasswordUtility.comparePasswords(password, existingUser.password);
+      if (!isPasswordCorrect) return 'Email o contraseña incorrecta.';
+
+      // Create the token
+      const token = await JWTUtility.sign(
+        { id: existingUser.uuid, email: existingUser.email },
+        config.JWT_SECRET,
+        { expiresIn: config.JWT_EXPIRES_IN }
+      );
+
+      return token;
     } catch (error) {
       return error;
     }
