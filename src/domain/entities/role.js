@@ -29,6 +29,17 @@ const Role = sequelize.define('role', {
     allowNull: true,
     field: 'updated_at'
   }
+}, {
+  timestamps: true,
+  // hook function that will be called before saving
+  hooks: {
+    beforeCreate: (role) => {
+      // only update the updatedAt field if any data actually changed
+      if (role.changed()) {
+        role.setDataValue('updatedAt', new Date());
+      }
+    }
+  }
 });
 
 export default Role;
