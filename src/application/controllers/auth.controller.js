@@ -5,9 +5,9 @@ const authService = new AuthService();
 
 const signup = async (req, resp, next) => {
   try {
-    const userDTO = req.body;
-    await authService.signup(userDTO);
-    resp.status(200).json('Se ha registrado correctamente!');
+    const request = req.body;
+    const response = await authService.signup(request);
+    resp.status(200).json(response);
   } catch (error) {
     next(error);
   }
@@ -15,9 +15,9 @@ const signup = async (req, resp, next) => {
 
 const signin = async (req, resp, next) => {
   try {
-    const { email, password } = req.body;
-    const token = await authService.signin(email, password);
-    resp.status(200).json(token);
+    const request = req.body;
+    const response = await authService.signin(request);
+    resp.status(200).json(response);
   } catch (error) {
     next(error);
   }
