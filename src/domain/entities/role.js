@@ -1,13 +1,34 @@
-class Role {
-  constructor (id, name, code, createdAt, updatedAt) {
-    this.id = id;
-    this.name = name;
-    this.code = code;
-    this.created_at = createdAt;
-    this.updated_at = updatedAt;
+import { DataTypes } from 'sequelize';
+import sequelize from '../../infraestructure/database/connection.js';
 
-    Object.seal(this); // prevent properties from being added or removed from the object.
+const Role = sequelize.define('role', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  code: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    length: 1
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+    field: 'created_at'
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    field: 'updated_at'
   }
-}
+});
 
 export default Role;
