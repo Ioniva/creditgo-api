@@ -2,7 +2,7 @@ import JWTUtility from '../../domain/utilities/jwt.utilities.js';
 import PasswordUtility from '../../domain/utilities/password.utilities.js';
 
 import sequelize from '../../infraestructure/database/connection.js';
-import User from '../../domain/entities/user.js';
+import User from '../../domain/entities/user_login_data.js';
 import Role from '../../domain/entities/role.js';
 
 import config from '../../../config/index.js';
