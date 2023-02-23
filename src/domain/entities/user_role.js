@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../infraestructure/database/connection.js';
 
-import User from './user.js';
 import Role from './role.js';
+import UserLoginData from './user_login_data.js';
 
 const UserRole = sequelize.define('user_role', {
   id: {
@@ -24,11 +24,11 @@ const UserRole = sequelize.define('user_role', {
 });
 
 // define associations
-User.belongsToMany(Role, { through: UserRole, foreignKey: 'idUser' });
-Role.belongsToMany(User, { through: UserRole, foreignKey: 'idRole' });
-UserRole.belongsTo(User, { foreignKey: 'idUser' });
+UserLoginData.belongsToMany(Role, { through: UserRole, foreignKey: 'idUser' });
+Role.belongsToMany(UserLoginData, { through: UserRole, foreignKey: 'idRole' });
+UserRole.belongsTo(UserLoginData, { foreignKey: 'idUser' });
 UserRole.belongsTo(Role, { foreignKey: 'idRole' });
 Role.hasMany(UserRole, { foreignKey: 'idRole' });
-User.hasMany(UserRole, { foreignKey: 'idUser' });
+UserLoginData.hasMany(UserRole, { foreignKey: 'idUser' });
 
 export default UserRole;
