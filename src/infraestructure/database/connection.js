@@ -1,11 +1,24 @@
-import knex from 'knex';
+import { Sequelize } from 'sequelize';
 import config from '../../../config/index.js';
 
-const connection = {
-  host: config.DATABASE.HOST,
-  user: config.DATABASE.USER,
-  password: config.DATABASE.PASS,
-  database: config.DATABASE.NAME
-};
+const sequelize = new Sequelize(config.DATABASE.NAME, config.DATABASE.USER, config.DATABASE.PASS, {
+  modelsDir: config.DATABASE.MODELS_DIR,
+  dialect: config.DATABASE.DIALECT,
+  database: config.DATABASE.HOST,
+  define: {
+    // customize pluralization rules
+    timestamps: true,
+    freezeTableName: true,
+    underscored: true,
+    pluralize: false // disable pluralization
+  }
+});
 
-export default knex({ client: 'pg', connection });
+// test the connection
+// sequelize.authenticate().then(() => {
+//   console.log('Connection has been established successfully.');
+// }).catch(err => {
+//   console.error('Unable to connect to the database:', err);
+// });
+
+export default sequelize;
