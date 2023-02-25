@@ -15,10 +15,13 @@ const sequelize = new Sequelize(config.DATABASE.NAME, config.DATABASE.USER, conf
 });
 
 // test the connection
-// sequelize.authenticate().then(() => {
-//   console.log('Connection has been established successfully.');
-// }).catch(err => {
-//   console.error('Unable to connect to the database:', err);
-// });
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log("Connection has been established successfully.");
+//   })
+//   .catch((err) => {
+//     console.error("Unable to connect to the database:", err);
+//   });
 
 export default sequelize;

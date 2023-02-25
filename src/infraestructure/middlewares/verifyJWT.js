@@ -1,5 +1,5 @@
 import config from '../../../config/index.js';
-import JWTUtility from '../../domain/utilities/jwt.utilities.js';
+import JWTUtility from '../../application/utilities/jwt.utility.js';
 
 const verifyJWT = (req, resp, next) => {
   try {
