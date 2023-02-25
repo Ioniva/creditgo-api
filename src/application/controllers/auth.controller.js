@@ -1,26 +1,14 @@
 import AuthService from '../services/auth.service.js';
-
-// initializing
 const authService = new AuthService();
 
-const signup = async (req, resp, next) => {
+// todo: SWAGGER DOC
+const signin = async (req, res, next) => {
   try {
-    const request = req.body;
-    const response = await authService.signup(request);
-    resp.status(200).json(response);
+    const response = await authService.signin(req.body);
+    res.status(200).json(response);
   } catch (error) {
-    next(error);
+    res.status(error.stausCode || 500).json({ message: error.message });
   }
 };
 
-const signin = async (req, resp, next) => {
-  try {
-    const request = req.body;
-    const response = await authService.signin(request);
-    resp.status(200).json(response);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export { signup, signin };
+export { signin };
