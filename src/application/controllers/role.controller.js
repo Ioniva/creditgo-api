@@ -1,6 +1,4 @@
 import RoleService from '../services/role.service.js';
-
-// initializing
 const roleService = new RoleService();
 
 const getAllRoles = async (req, resp, next) => {
