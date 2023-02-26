@@ -5,7 +5,12 @@ import express from 'express';
 import cors from 'cors';
 
 // server entry files
-import { AuthRoute, BankRoute, RoleRoute } from './src/infraestructure/routes/index.routes.js';
+import {
+  AuthRoute,
+  BankRoute,
+  RoleRoute,
+  EmployeeRoute
+} from './src/infraestructure/routes/index.routes.js';
 import ErrorHandler from './src/infraestructure/middlewares/errorHandler.js';
 import { HttpLogger, Logger } from './src/infraestructure/logger/index.js';
 
@@ -39,9 +44,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // fill routes for express application
-app.use('/api/v1/roles', RoleRoute);
-app.use('/api/v1/auth', AuthRoute);
-app.use('/api/v1/banks', BankRoute);
+const apiVersion = '/api/v1';
+app.use(apiVersion + '/roles', RoleRoute);
+app.use(apiVersion + '/auth', AuthRoute);
+app.use(apiVersion + '/banks', BankRoute);
+app.use(apiVersion + '/employees', EmployeeRoute);
 
 // error handler (Last middleware to use)
 app.use(ErrorHandler);
