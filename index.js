@@ -5,7 +5,7 @@ import express from 'express';
 import cors from 'cors';
 
 // server entry files
-import { AuthRoute, RoleRoute } from './src/infraestructure/routes/index.routes.js';
+import { AuthRoute, BankRoute, RoleRoute } from './src/infraestructure/routes/index.routes.js';
 import ErrorHandler from './src/infraestructure/middlewares/errorHandler.js';
 import { HttpLogger, Logger } from './src/infraestructure/logger/index.js';
 
@@ -16,7 +16,7 @@ import config from './config/index.js';
 
 /**
  * express application
-*/
+ */
 const app = express();
 const port = config.PORT || 4000;
 
@@ -41,6 +41,7 @@ app.use(express.json());
 // fill routes for express application
 app.use('/api/v1/roles', RoleRoute);
 app.use('/api/v1/auth', AuthRoute);
+app.use('/api/v1/banks', BankRoute);
 
 // error handler (Last middleware to use)
 app.use(ErrorHandler);
