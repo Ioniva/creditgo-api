@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../infraestructure/database/connection.js';
 
-const UserLoginData = sequelize.define('user_login_data', {
+const LoginData = sequelize.define('login_data', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -41,4 +41,4 @@ const UserLoginData = sequelize.define('user_login_data', {
   }
 });
 
-export default UserLoginData;
+export default LoginData;
