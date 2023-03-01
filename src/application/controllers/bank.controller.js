@@ -1,7 +1,6 @@
 import bankService from '../services/bank.service.js';
 
 const getBankNames = async (req, res) => {
-  console.log('Estoy dentro de bank names...');
   try {
     const response = await bankService.getBankNames();
     res.status(200).json(response);

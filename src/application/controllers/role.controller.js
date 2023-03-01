@@ -12,8 +12,7 @@ const getAllRoles = async (req, resp, next) => {
 
 const createRole = async (req, resp, next) => {
   try {
-    const roleDTO = req.body;
-    await roleService.createRole(roleDTO);
+    await roleService.createRole(req.body);
     resp.status(201).json('Se ha creado correctamente!');
   } catch (error) {
     next(error);

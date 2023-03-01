@@ -9,10 +9,15 @@ import {
   AuthRoute,
   BankRoute,
   RoleRoute,
-  EmployeeRoute
+  EmployeeRoute,
+  ProfileRoute
 } from './src/infraestructure/routes/index.routes.js';
-import ErrorHandler from './src/infraestructure/middlewares/errorHandler.js';
 import { HttpLogger, Logger } from './src/infraestructure/logger/index.js';
+import {
+  errorLogger,
+  errorResponder,
+  invalidPathHandler
+} from './src/infraestructure/middlewares/error/index.js';
 
 /**
  * server configuration
@@ -45,13 +50,16 @@ app.use(express.json());
 
 // fill routes for express application
 const apiVersion = '/api/v1';
-app.use(apiVersion + '/roles', RoleRoute);
-app.use(apiVersion + '/auth', AuthRoute);
-app.use(apiVersion + '/banks', BankRoute);
-app.use(apiVersion + '/employees', EmployeeRoute);
+app.use(`${apiVersion}/roles`, RoleRoute);
+app.use(`${apiVersion}/auth`, AuthRoute);
+app.use(`${apiVersion}/banks`, BankRoute);
+app.use(`${apiVersion}/employees`, EmployeeRoute);
+app.use(`${apiVersion}/profiles`, ProfileRoute);
 
-// error handler (Last middleware to use)
-app.use(ErrorHandler);
+// error handlers (Last middleware to use)
+app.use(errorLogger);
+app.use(errorResponder);
+app.use(invalidPathHandler);
 
 app.listen(port, () => {
   logger.info(`Listening on port: ${port}`);
