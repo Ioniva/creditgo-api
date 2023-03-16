@@ -1,5 +1,5 @@
 import STATUS_CODES from '../../../application/utilities/constants/STATUS_CODES.js';
-import ValidationException from '../../../application/exceptions/ValidationException.js';
+import ValidationException from '../../../application/exceptions/validation.exception.js';
 
 const errorHandler = (controllerFunction) => async (req, res, next) => {
   try {
