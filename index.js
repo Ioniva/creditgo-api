@@ -6,18 +6,19 @@ import cors from 'cors';
 
 // server entry files
 import {
-  AuthRoute,
+  LoginRoute,
   BankRoute,
   RoleRoute,
-  EmployeeRoute,
-  ProfileRoute
+  FinancialRoute,
+  // EmployeeRoute,
+  // ProfileRoute,
+  UserRoute,
+  GuarantorRoute,
+  // ValorationRoute,
+  SolicitationRoute
 } from './src/infraestructure/routes/index.routes.js';
 import { HttpLogger, Logger } from './src/infraestructure/logger/index.js';
-import {
-  errorLogger,
-  errorResponder,
-  invalidPathHandler
-} from './src/infraestructure/middlewares/error/index.js';
+import { errorLogger, errorResponder, invalidPathHandler } from './src/infraestructure/middlewares/error/index.js';
 
 /**
  * server configuration
@@ -34,7 +35,7 @@ const morganMiddleware = HttpLogger.getHttpLoggerInstance();
 const logger = Logger.getInstance();
 
 const corsOptions = {
-  origin: 'http://localhost:8081'
+  origin: ['http://127.0.0.1:8081', 'http://127.0.0.1:5173']
 };
 
 // allow cross origin requests
@@ -51,10 +52,14 @@ app.use(express.json());
 // fill routes for express application
 const apiVersion = '/api/v1';
 app.use(`${apiVersion}/roles`, RoleRoute);
-app.use(`${apiVersion}/auth`, AuthRoute);
+app.use(`${apiVersion}/auth`, LoginRoute);
 app.use(`${apiVersion}/banks`, BankRoute);
-app.use(`${apiVersion}/employees`, EmployeeRoute);
-app.use(`${apiVersion}/profiles`, ProfileRoute);
+app.use(`${apiVersion}/financials`, FinancialRoute);
+// app.use(`${apiVersion}/employees`, EmployeeRoute);
+app.use(`${apiVersion}/users`, UserRoute);
+app.use(`${apiVersion}/guarantors`, GuarantorRoute);
+// app.use(`${apiVersion}/rejection-reasons`, ValorationRoute);
+app.use(`${apiVersion}/me/solicitations`, SolicitationRoute);
 
 // error handlers (Last middleware to use)
 app.use(errorLogger);
