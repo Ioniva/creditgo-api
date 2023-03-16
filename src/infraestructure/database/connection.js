@@ -7,7 +7,7 @@ const sequelize = new Sequelize(config.DATABASE.NAME, config.DATABASE.USER, conf
   database: config.DATABASE.HOST,
   define: {
     // customize pluralization rules
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     pluralize: false // disable pluralization
