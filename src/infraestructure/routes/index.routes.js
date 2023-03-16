@@ -1,5 +1,10 @@
 export { default as RoleRoute } from './role.routes.js';
-export { default as AuthRoute } from './auth.routes.js';
+export { default as LoginRoute } from './login.routes.js';
 export { default as BankRoute } from './bank.routes.js';
-export { default as EmployeeRoute } from './employee.routes.js';
-export { default as ProfileRoute } from './profile.routes.js';
+export { default as FinancialRoute } from './financial.routes.js';
+// export { default as EmployeeRoute } from "./employee.routes.js";
+// export { default as ProfileRoute } from "./old/profile.routes.js";
+export { default as UserRoute } from './user.routes.js';
+export { default as GuarantorRoute } from './guarantor.routes.js';
+// export { default as ValorationRoute } from "./rejection-reason.routes.js";
+export { default as SolicitationRoute } from './solicitation.routes.js';
