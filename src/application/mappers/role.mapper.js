@@ -16,4 +16,4 @@ class RoleMapper {
   }
 }
 
-export default RoleMapper;
+export default new RoleMapper();

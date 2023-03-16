@@ -1,11 +1,10 @@
 import express from 'express';
 import { createRole, getAllRoles } from '../../application/controllers/role.controller.js';
-import validatorRoleDTO from '../middlewares/validation/role.validation.js';
-import verifyJWT from '../middlewares/verifyJWT.js';
+import errorHandler from '../middlewares/error/errorHandler.js';
 
 const router = express.Router();
 
-router.get('/', verifyJWT, getAllRoles);
-router.post('/', validatorRoleDTO, verifyJWT, createRole);
+router.get('/', errorHandler(getAllRoles));
+router.post('/', errorHandler(createRole));
 
 export default router;
