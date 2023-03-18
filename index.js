@@ -15,7 +15,8 @@ import {
   UserRoute,
   GuarantorRoute,
   // ValorationRoute,
-  SolicitationRoute
+  SolicitationRoute,
+  MeRoute
 } from './src/infraestructure/routes/index.routes.js';
 import { HttpLogger, Logger } from './src/infraestructure/logger/index.js';
 import { errorLogger, errorResponder, invalidPathHandler } from './src/infraestructure/middlewares/error/index.js';
@@ -55,11 +56,12 @@ app.use(`${apiVersion}/roles`, RoleRoute);
 app.use(`${apiVersion}/auth`, LoginRoute);
 app.use(`${apiVersion}/banks`, BankRoute);
 app.use(`${apiVersion}/financials`, FinancialRoute);
-// app.use(`${apiVersion}/employees`, EmployeeRoute);
 app.use(`${apiVersion}/users`, UserRoute);
 app.use(`${apiVersion}/guarantors`, GuarantorRoute);
+app.use(`${apiVersion}/solicitations`, SolicitationRoute);
+app.use(`${apiVersion}/me`, MeRoute);
+// app.use(`${apiVersion}/employees`, EmployeeRoute);
 // app.use(`${apiVersion}/rejection-reasons`, ValorationRoute);
-app.use(`${apiVersion}/me/solicitations`, SolicitationRoute);
 
 // error handlers (Last middleware to use)
 app.use(errorLogger);

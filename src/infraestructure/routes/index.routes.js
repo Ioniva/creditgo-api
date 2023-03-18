@@ -8,3 +8,4 @@ export { default as UserRoute } from './user.routes.js';
 export { default as GuarantorRoute } from './guarantor.routes.js';
 // export { default as ValorationRoute } from "./rejection-reason.routes.js";
 export { default as SolicitationRoute } from './solicitation.routes.js';
+export { default as MeRoute } from './me.routes.js';
