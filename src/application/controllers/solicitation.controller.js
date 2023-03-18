@@ -5,4 +5,14 @@ const getThisUserSolicitations = async (req, res) => {
   res.status(200).json(response);
 };
 
-export { getThisUserSolicitations };
+const getSolicitationByUUID = async (req, res) => {
+  const response = await solicitationService.getSolicitationByUUID(req.params.uuid);
+  res.status(200).json(response);
+};
+
+const createSolicitation = async (req, res) => {
+  const response = await solicitationService.createSolicitation(req.headers.authorization, req.body);
+  res.status(201).json(response);
+};
+
+export { getThisUserSolicitations, getSolicitationByUUID, createSolicitation };

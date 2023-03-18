@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../../infraestructure/database/connection.js';
 
 const State = sequelize.define(
-  'State',
+  'state',
   {
     id: {
       type: DataTypes.INTEGER,
