@@ -5,6 +5,8 @@ import Financial from './financial.js';
 import Guarantor from './guarantor.js';
 import BankAccount from './bank_account.js';
 import LoginData from './login_data.js';
+import Solicitation from './solicitation.js';
+import UserSolicitation from './user_solicitation.js';
 
 const User = sequelize.define(
   'user',
@@ -160,5 +162,18 @@ Financial.belongsTo(User, { foreignKey: 'idFinancial', onDelete: 'CASCADE' });
 
 User.hasOne(BankAccount, { foreignKey: 'idBankAccount', onDelete: 'CASCADE' });
 BankAccount.belongsTo(User, { foreignKey: 'idBankAccount', onDelete: 'CASCADE' });
+
+User.belongsToMany(Solicitation, {
+  through: UserSolicitation,
+  foreignKey: 'idUser',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+});
+Solicitation.belongsToMany(User, {
+  through: UserSolicitation,
+  foreignKey: 'idSolicitation',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+});
 
 export default User;
