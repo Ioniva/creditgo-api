@@ -12,11 +12,15 @@ const signin = async ({ email, password }) => {
   const existingLoginData = await userRepository.getUserByLoginDataEmail(email);
   if (!existingLoginData) throw new Error('Invalid credentials');
 
+  const roles = [];
+  existingLoginData.roles.forEach((role) => roles.push(role.code));
+
   const user = {
     uuid: existingLoginData.user.uuid,
     name: existingLoginData.user.name,
     surname: existingLoginData.user.surname,
-    email: existingLoginData.email
+    email: existingLoginData.email,
+    roles: roles
   };
 
   const isPasswordValid = await PasswordUtility.comparePasswords(password, existingLoginData.password);

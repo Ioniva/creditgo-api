@@ -1,4 +1,5 @@
 import LoginData from '../../domain/entities/login_data.js';
+import Role from '../entities/role.js';
 import User from '../entities/user.js';
 
 class UserRepository {
@@ -13,7 +14,16 @@ class UserRepository {
   async getUserByLoginDataEmail (email) {
     return await LoginData.findOne({
       where: { email },
-      include: { model: User, attributes: ['uuid', 'name', 'surname'] }
+      include: [
+        {
+          model: User,
+          attributes: ['uuid', 'name', 'surname']
+        },
+        {
+          model: Role,
+          attributes: ['code']
+        }
+      ]
     });
   }
 
