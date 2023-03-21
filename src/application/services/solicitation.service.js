@@ -5,6 +5,7 @@ import config from '../../../config/index.js';
 import solicitationRepository from '../../domain/repositories/solicitation.repository.js';
 import userRepository from '../../domain/repositories/user.repository.js';
 import stateRepository from '../../domain/repositories/state.repository.js';
+import rejectionReasonRepository from '../../domain/repositories/rejection-reason.repository.js';
 
 const getThisUserSolicitations = async (authHeader) => {
   if (!authHeader) throw new Error('Token is required');
@@ -60,4 +61,54 @@ const createSolicitation = async (authHeader, solicitation) => {
   }
 };
 
-export default { getThisUserSolicitations, getSolicitationByUUID, createSolicitation };
+const getPendingSolicitations = async () => {
+  const solicitations = await solicitationRepository.getPendingSolicitations();
+  if (!solicitations) throw new Error('Pending solicitations not found');
+  return { solicitations: solicitations, message: 'Pending solicitations retrieved successfully' };
+};
+
+const getSolicitationByUUIDWithUserFinancialData = async (uuid) => {
+  const solicitation = await solicitationRepository.getSolicitationByUUIDWithUserFinancialData(uuid);
+  if (!solicitation) throw new Error('Solicitation not found');
+
+  return { solicitation: solicitation, message: 'Solicitation retrieved successfully' };
+};
+
+const updateSolicitationStateByUUID = async (uuid, { state, rejectionReason }) => {
+  // validate state
+  const stateFound = await stateRepository.getStateByCode(state);
+  if (!stateFound) throw new Error('State not found');
+
+  // validate rejection reason if not undefined
+  let rejectionReasonFound;
+  if (rejectionReason) {
+    rejectionReasonFound = await rejectionReasonRepository.getRejectionReasonByCode(rejectionReason);
+    if (!rejectionReasonFound) throw new Error('Rejection reason not found');
+  }
+
+  // update solicitation state by uuid
+  const transaction = await sequelize.transaction();
+  try {
+    const solicitation = await solicitationRepository.updateSolicitationByUUID(
+      uuid,
+      { idState: stateFound.id, idRejectionReason: rejectionReason ? rejectionReasonFound.id : null },
+      transaction
+    );
+    if (!solicitation) throw new Error('Error updating solicitation state');
+
+    await transaction.commit();
+    return { solicitation: solicitation, message: 'Solicitation state updated successfully' };
+  } catch (error) {
+    await transaction.rollback();
+    throw new Error(error);
+  }
+};
+
+export default {
+  getThisUserSolicitations,
+  getSolicitationByUUID,
+  createSolicitation,
+  getPendingSolicitations,
+  getSolicitationByUUIDWithUserFinancialData,
+  updateSolicitationStateByUUID
+};
