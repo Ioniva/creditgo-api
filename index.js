@@ -14,7 +14,7 @@ import {
   // ProfileRoute,
   UserRoute,
   GuarantorRoute,
-  // ValorationRoute,
+  RejectionReasonRoute,
   SolicitationRoute,
   MeRoute
 } from './src/infraestructure/routes/index.routes.js';
@@ -60,8 +60,8 @@ app.use(`${apiVersion}/users`, UserRoute);
 app.use(`${apiVersion}/guarantors`, GuarantorRoute);
 app.use(`${apiVersion}/solicitations`, SolicitationRoute);
 app.use(`${apiVersion}/me`, MeRoute);
+app.use(`${apiVersion}/rejection-reasons`, RejectionReasonRoute);
 // app.use(`${apiVersion}/employees`, EmployeeRoute);
-// app.use(`${apiVersion}/rejection-reasons`, ValorationRoute);
 
 // error handlers (Last middleware to use)
 app.use(errorLogger);
