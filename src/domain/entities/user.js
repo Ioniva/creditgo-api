@@ -154,14 +154,14 @@ const User = sequelize.define(
 User.belongsTo(LoginData, { foreignKey: 'idLoginData', onDelete: 'CASCADE' });
 LoginData.hasOne(User, { foreignKey: 'idLoginData', onDelete: 'CASCADE' });
 
-User.hasOne(Guarantor, { foreignKey: 'idGuarantor', onDelete: 'CASCADE' });
-Guarantor.belongsTo(User, { foreignKey: 'idGuarantor', onDelete: 'CASCADE' });
+User.belongsTo(Guarantor, { foreignKey: 'idGuarantor', onDelete: 'CASCADE' });
+Guarantor.hasOne(User, { foreignKey: 'idGuarantor', onDelete: 'CASCADE' });
 
-User.hasOne(Financial, { foreignKey: 'idFinancial', onDelete: 'CASCADE' });
-Financial.belongsTo(User, { foreignKey: 'idFinancial', onDelete: 'CASCADE' });
+User.belongsTo(Financial, { foreignKey: 'idFinancial', onDelete: 'CASCADE' });
+Financial.hasOne(User, { foreignKey: 'idFinancial', onDelete: 'CASCADE' });
 
-User.hasOne(BankAccount, { foreignKey: 'idBankAccount', onDelete: 'CASCADE' });
-BankAccount.belongsTo(User, { foreignKey: 'idBankAccount', onDelete: 'CASCADE' });
+User.belongsTo(BankAccount, { foreignKey: 'idBankAccount', onDelete: 'CASCADE' });
+BankAccount.hasOne(User, { foreignKey: 'idBankAccount', onDelete: 'CASCADE' });
 
 User.belongsToMany(Solicitation, {
   through: UserSolicitation,

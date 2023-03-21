@@ -62,7 +62,6 @@ const Financial = sequelize.define(
 
 // Define the relationship between the tables EmployeeType and FinancialData
 EmployeeType.hasOne(Financial, { foreignKey: 'idEmployeeType' });
-Financial.belongsTo(EmployeeType, { foreignKey: 'idEmployeeType' });
-// define the relationship between the tables EmployeeType and Guarantor
+Financial.belongsTo(EmployeeType, { foreignKey: 'idEmployeeType', as: 'employeeType' });
 
 export default Financial;
